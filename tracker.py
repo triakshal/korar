@@ -37,8 +37,8 @@ def main():
             "number": len(tasks)+1,
             "description": description,
             "status": "todo",
-            "createdAt": datetime.datetime.utcnow().isoformat(),
-            "updatedAt": datetime.datetime.utcnow().isoformat(),
+            "createdAt": datetime.datetime.now().isoformat(),
+            "updatedAt": datetime.datetime.now().isoformat(),
         }
 
         tasks.append(new_task)
@@ -60,3 +60,30 @@ def main():
             else:
                 for t in sorted_tasks:
                     print(f"{t['number']}: {t['description']}")
+
+    if command == "update":
+        if len(sys.argv) < 4:
+            print("Provide task # and edits.")
+            return
+
+        try:
+            task_id = int(sys.argv[2])
+            new_description = " ".join(sys.argv[3:])
+            tasks = task_helper()
+            task_found = False
+
+            for t in tasks:
+                if t["number"] == task_id:
+                    t["description"] = new_description
+                    t["updatedAt"] = datetime.datetime.now().isoformat()
+                    task_found = True
+                    break
+            if task_found:
+                save_tasks(tasks)
+                print(f"Task #{task_id} updated.")
+            else:
+                print(f"Task #{task_id} not found.")
+        except ValueError:
+            print("Invalid task number.")
+
+
