@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/69623fa4-9d7b-4772-95b7-c543497b8e6b)
+
+
 Simple CLI to-do list manager in python. 
 
 
