@@ -4,6 +4,7 @@ import sys
 import json
 import datetime
 
+
 def task_helper():
     try:
         with open("list.json", "r") as f:
@@ -15,9 +16,11 @@ def task_helper():
     except json.decoder.JSONDecodeError:
         return []  # Return empty list instead of dict
 
+
 def save_tasks(tasks):  # Renamed from save() for clarity
     with open("list.json", "w") as f:
         json.dump(tasks, f, indent=2)  # Dump the tasks, not the filename
+
 
 def main():
     if len(sys.argv) < 2:
@@ -34,7 +37,7 @@ def main():
         tasks = task_helper()
 
         new_task = {
-            "number": len(tasks)+1,
+            "number": len(tasks) + 1,
             "description": description,
             "status": "incomplete",
             "createdAt": datetime.datetime.now().isoformat(),
@@ -131,6 +134,7 @@ def main():
                 print(f"Task #{task_id} not found.")
         except ValueError:
             print("Invalid task number.")
+
 
 if __name__ == "__main__":
     main()
