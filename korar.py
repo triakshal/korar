@@ -4,20 +4,20 @@ import sys
 import json
 import datetime
 
-
 def task_helper():
     try:
         with open("list.json", "r") as f:
-            return json.load(f)
+            tasks = json.load(f)
+            # Ensure we always return a list
+            return tasks if isinstance(tasks, list) else []
     except FileNotFoundError:
-        return {}
+        return []  # Return empty list instead of dict
     except json.decoder.JSONDecodeError:
-        return {}
+        return []  # Return empty list instead of dict
 
-def save():
+def save_tasks(tasks):  # Renamed from save() for clarity
     with open("list.json", "w") as f:
-        json.dump("list.json", f, indent=2)
-
+        json.dump(tasks, f, indent=2)  # Dump the tasks, not the filename
 
 def main():
     if len(sys.argv) < 2:
@@ -36,13 +36,13 @@ def main():
         new_task = {
             "number": len(tasks)+1,
             "description": description,
-            "status": "todo",
+            "status": "incomplete",
             "createdAt": datetime.datetime.now().isoformat(),
             "updatedAt": datetime.datetime.now().isoformat(),
         }
 
         tasks.append(new_task)
-        save_tasks = tasks
+        save_tasks(tasks)  # Fixed function call
         print(f"Task #{new_task['number']} added to your list.")
 
     elif command == "list":
@@ -61,7 +61,7 @@ def main():
                 for t in sorted_tasks:
                     print(f"{t['number']}: {t['description']}")
 
-    if command == "update":
+    elif command == "update":  # Changed from 'if' to 'elif'
         if len(sys.argv) < 4:
             print("Provide task # and edits.")
             return
@@ -86,7 +86,7 @@ def main():
         except ValueError:
             print("Invalid task number.")
 
-    elif command == ["mark-complete", "mark-in-progress"]:
+    elif command in ["mark-complete", "mark-in-progress"]:  # Fixed the comparison
         if len(sys.argv) < 3:
             print("Provide task #.")
             return
