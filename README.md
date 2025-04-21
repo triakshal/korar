@@ -7,7 +7,7 @@ Simple CLI to-do list manager in python.
 
 Usage: 
 
-python korar.py [command] [options]
+python taches.py [command] [options]
 
 commands: 
 
