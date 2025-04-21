@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/69623fa4-9d7b-4772-95b7-c543497b8e6b)
+![image](https://github.com/user-attachments/assets/27991183-b874-4a9a-bf69-c9a483f5817f)
+
 
 
 Simple CLI to-do list manager in python. 
