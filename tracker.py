@@ -30,21 +30,33 @@ def main():
         if len(sys.argv) < 3:
             print("Enter a task.")
             return
-    description = " ".join(sys.argv[2:])
-    tasks = task_helper()
+        description = " ".join(sys.argv[2:])
+        tasks = task_helper()
 
-    new_task = {
-        "number": len(tasks)+1,
-        "description": description,
-        "status": "todo",
-        "createdAt": datetime.datetime.utcnow().isoformat(),
-        "updatedAt": datetime.datetime.utcnow().isoformat(),
-    }
+        new_task = {
+            "number": len(tasks)+1,
+            "description": description,
+            "status": "todo",
+            "createdAt": datetime.datetime.utcnow().isoformat(),
+            "updatedAt": datetime.datetime.utcnow().isoformat(),
+        }
 
-    tasks.append(new_task)
-    save_tasks = tasks
-    print(f"Task #{new_task['number']} added to your list.")
+        tasks.append(new_task)
+        save_tasks = tasks
+        print(f"Task #{new_task['number']} added to your list.")
 
+    elif command == "list":
+        tasks = task_helper()
 
+        if len(sys.argv) < 3:
+            for t in tasks:
+                print(f"{t['number']}: {t['description']} [{t['status']}]")
+        else:
+            status = sys.argv[2]
+            sorted_tasks = [t for t in tasks if t["status"] == status]
 
-
+            if not sorted_tasks:
+                print("No tasks found.")
+            else:
+                for t in sorted_tasks:
+                    print(f"{t['number']}: {t['description']}")
