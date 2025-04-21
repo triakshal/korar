@@ -86,4 +86,30 @@ def main():
         except ValueError:
             print("Invalid task number.")
 
+    elif command == ["mark-complete", "mark-in-progress"]:
+        if len(sys.argv) < 3:
+            print("Provide task #.")
+            return
+
+        try:
+            task_id = int(sys.argv[2])
+            new_status = "complete" if command == "mark-complete" else "in-progress"
+
+            tasks = task_helper()
+            task_found = False
+
+            for t in tasks:
+                if t["number"] == task_id:
+                    t["status"] = new_status
+                    t["updatedAt"] = datetime.datetime.now().isoformat()
+                    task_found = True
+                    break
+            if task_found:
+                save_tasks(tasks)
+                print(f"Task #{task_id} marked {new_status}.")
+            else:
+                print(f"Task #{task_id} not found.")
+        except ValueError:
+            print("Invalid task number.")
+
 
