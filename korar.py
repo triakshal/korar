@@ -21,7 +21,7 @@ def save():
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: Korar [command] [options]")
+        print("Usage: korar [command] [options]")
         return
 
     command = sys.argv[1]
