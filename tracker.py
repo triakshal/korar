@@ -112,4 +112,22 @@ def main():
         except ValueError:
             print("Invalid task number.")
 
+    elif command == "remove":
+        if len(sys.argv) < 3:
+            print("Provide task #.")
+            return
 
+        try:
+            task_id = int(sys.argv[2])
+            tasks = task_helper()
+            initial_length = len(tasks)
+
+            tasks = [t for t in tasks if t["number"] != task_id]
+
+            if len(tasks) < initial_length:
+                save_tasks(tasks)
+                print(f"Task #{task_id} removed.")
+            else:
+                print(f"Task #{task_id} not found.")
+        except ValueError:
+            print("Invalid task number.")
