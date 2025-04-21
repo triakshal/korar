@@ -2,8 +2,6 @@ import sys
 import json
 import datetime
 
-# if __name__ == "__main__":
-#     main()
 
 def task_helper():
     try:
@@ -131,3 +129,6 @@ def main():
                 print(f"Task #{task_id} not found.")
         except ValueError:
             print("Invalid task number.")
+
+if __name__ == "__main__":
+    main()
